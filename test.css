@@ -1,0 +1,36 @@
+@charset "utf-8";
+html,
+body,
+/* contents */
+#contents{
+	margin:20px 10px 20px;
+}
+
+h2.pagetitle{
+	margin:0px 0px 20px;
+	font-size:18px;
+	color:#287bec;
+	border-bottom:3px solid #287bec;
+}
+
+h2.pagetitle:before{
+ content:"◆ ";
+}
+
+/* sorezore */
+.hyouji{
+	margin:5px;
+	padding:5px;
+	background-color:#FFFFEE;
+}
+.hyouji title,
+{
+font-weight:bold;
+}
+.ajax .hyouji p,
+{
+color:#FF0000;
+}
+.ajax p{
+	margin:5px; 
+} 
