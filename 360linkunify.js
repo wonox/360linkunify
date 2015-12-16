@@ -6,52 +6,50 @@ function parsedom(res, name, namae) {
 	//var xmlcontent=res["responseText"];
 	//console.log(content+xmlcontent);
 	var listdata="";
-	// $(xmlDoc).find("ssopenurl\\:openURLResponse").each(function(){
-	$(xmlDoc).find("ssopenurl\\:result").each(function(){
-		// $(xmlDoc).find("ssopenurl\\:openURLResponse").each(function(){
-		// $(xmlDoc).find("ssopenurl\\:citation").each(function(){
-		var title=$(this).find("dc\\:title").text();
-		var source=$(this).find("dc\\:source").text();	
-		var issn=$(this).find("ssopenurl\\:issn").text();	
-		var eissn=$(this).find("ssopenurl\\:eissn").text();	
-		var volume=$(this).find("ssopenurl\\:volume").text();	
-		var issue=$(this).find("ssopenurl\\:issue").text();	
-		var spage=$(this).find("ssopenurl\\:spage").text();	
-		var startDate=$(this).find("ssopenurl\\:startDate").text();	
-		var providerName=$(this).find("ssopenurl\\:providerName").text();	
-		var databaseName=$(this).find("ssopenurl\\:databaseName").text();	
-		var startDate=$(this).find("ssopenurl\\:startDate").text();	
+	// 両方をカンマ区切りで指定してブラウザによる差異を吸収。
+	$(xmlDoc).find("ssopenurl\\:result, result").each(function(){
+		var title=$(this).find("dc\\:title, title").text();
+		var source=$(this).find("dc\\:source, source").text();
+		var issn=$(this).find("ssopenurl\\:issn, issn").text();
+		var eissn=$(this).find("ssopenurl\\:eissn, eissn").text();
+		var volume=$(this).find("ssopenurl\\:volume, volume").text();
+		var issue=$(this).find("ssopenurl\\:issue, issue").text();
+		var spage=$(this).find("ssopenurl\\:spage, spage").text();
+		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
+		var providerName=$(this).find("ssopenurl\\:providerName, providerName").text();
+		var databaseName=$(this).find("ssopenurl\\:databaseName, databaseName").text();
+		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
 		//var surl=$(this).find("ssopenurl\\:url").text();
-		var jurl=$(this).find("ssopenurl\\:url[type='journal']").text();
-		var aurl=$(this).find("ssopenurl\\:url[type='article']").text();
-		var vurl=$(this).find("ssopenurl\\:url[type='volume']").text();
+		var jurl=$(this).find("ssopenurl\\:url[type='journal'], url[type='journal']").text();
+		var aurl=$(this).find("ssopenurl\\:url[type='article'], url[type='article']").text();
+		var vurl=$(this).find("ssopenurl\\:url[type='volume'], url[type='volume']").text();
 		listdata+="<h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl +"</a></p>";
 	});
  	//	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
-	name = '.' + name; 
+	name = '.' + name;
 	if ( listdata == "" ) listdata = "nodata";
-	$(name).html("<h3>"+namae+"</h3>"+listdata);  
+	$(name).html("<h3>"+namae+"</h3>"+listdata);
 }
 
 function ajaxxml(baseurl,name,namae) {
-//Javascript変数定義  
+//Javascript変数定義
 //var content ="";
-	$(document).ready(function(){  
+	$(document).ready(function(){
 		$.ajax({
     		// url: 'http://natalie.mu/comic/feed/news',
     		// url: 'http://vs2ga4mq9g.openurl.xml.serialssolutions.com/openurlxml?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Iodine+status+of+UK+schoolgirls:+a+cross-sectional+survey&rft.jtitle=The+Lancet&rft.au=Vanderpump,+Mark+PJ&rft.au=Holder,+Roger+L&rft.au=Lazarus,+John+H&rft.au=Boelaert,+Kristien&rft.au=Laurberg,+Peter&rft.au=Smyth,+Peter+P&rft.au=Franklyn,+Jayne+A&rft.date=2011-06-17&rft.pub=Elsevier+B.V&rft.issn=0140-6736&rft.volume=377&rft.issue=9782&rft.spage=2007&rft.epage=2012&rft_id=info:doi/10.1016/S0140-6736%2811%2960693-4&rft.externalDBID=GLAN&rft.externalDocID=10_1016_S0140_6736_11_60693_4',
-			url: baseurl, 
+			url: baseurl,
 			type: "GET",
 			success: function(res) {
         		// content = $(res.responseText).text();//○○.responseTextで取得
- 				// $(".hyouji").html("<h4>responseText</h4>"+content);  
+ 				// $(".hyouji").html("<h4>responseText</h4>"+content);
  				parsedom(res, name, namae);
  			},
 			fail: function() {
 				alert(fail);
 			}
 		});
-	}); 
+	});
 }
 
 /*base URL of other libraries*/
@@ -82,4 +80,3 @@ opurl = opurl.replace("url_ver=Z39.88-2003&", "" );
 for(i in portal) {
 	  ajaxxml( portal[i]['base'] + 'openurlxml' + opurl,  portal[i]['name'],  portal[i]['namae']);
 }
-
