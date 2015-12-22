@@ -72,12 +72,41 @@ var portal=[
   {"base":"http://jg8gn6xr5x","name":'hokudai',"namae":'北海道大学'}
   ];
 
+// main
 var opurl =	window.location.search;
-if ( !opurl.match(/version=1.0/)) opurl = opurl.replace(/(\?)/g, "$1version=1.0&" );
-opurl = opurl.replace("url_ver=Z39.88-2003&", "" );
+if (opurl.match(/Z39\.88/)) {
+  if ( !opurl.match(/version=1.0/)) opurl = opurl.replace(/(\?)/g, "$1version=1.0&" );
+  opurl = opurl.replace("url_ver=Z39.88-2003&", "" );
+  main(opurl);
+} else {alert("failure")}
 
-for(i in portal) {
-	  ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],  portal[i]['namae']);
+function main(opurl) {
+  for(i in portal) {
+	  ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],    portal[i]['namae']);
+  }
+}
+
+// フォームの値を取得する
+function my1() {
+	// var keyname = document.getElementById('my-text').value;
+	var keyname = $('#my-form [name=my-text]').val(); // jqueryを使った場合
+	removeall("resolver");
+	if (keyname == '') {removeall("result");};
+	if (!keyname.match(/[0-9\-xX]{8}/)) {
+		alert("input only valid ISSN");
+		return false; // break の代わり
+		};
+	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
+	main(keyname);
+}
+
+function removeall (id){
+	var aNode = document.getElementById(id);
+	// aNode.parentNode.removeChild(aNode);
+
+	for (var i =aNode.childNodes.length-1; i>=0; i--) {
+		aNode.removeChild(aNode.childNodes[i]);
+	}
 }
 
 // http://mx9kp2xn4f.search.serialssolutions.com/
@@ -86,4 +115,5 @@ for(i in portal) {
 // opurl = "?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=journal&rfr_dat=SB00050365&rft.issn=00014273&rft.jtitle=The+Academy+of+Management+journal";
 // opurl = "?version=1.0&ctx_ver=Z39.88-2004&url_ver=Z39.88-2004&ctx_enc=info%3aofi/enc%3aUTF-8&rft_val_fmt=info%3aofi/fmt%3akev%3amtx%3ajournal&rfr_id=info%3asid/ci.nii.ac.jp%3aCiNii&rfe_dat=naid/110002763494&rft.issn=04478053&rft.eissn=04478053&rft.atitle=3.%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e3%81%ae%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88+%28%3c%e7%89%b9%e9%9b%86%3e%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%29&rft.jtitle=%e6%83%85%e5%a0%b1%e5%87%a6%e7%90%86&rft.aulast=%e5%ae%89%e9%81%94&rft.aufirst=%e6%b7%b3&rft.aucorp=%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e7%a0%94%e7%a9%b6%e9%96%8b%e7%99%ba%e9%83%a8&rft.date=1996&rft.volume=37&rft.issue=9&rft.spage=826&rft.epage=830";
 // opurl = "?&ctx_ver=Z39.88-2004&url_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&rfr_id=info%3Asid%2Fci.nii.ac.jp%3ACiNii&rfe_dat=info%3Anaid%2F40020506894&rfe_dat=info%3Ancid%2FAA11981769&rft.atitle=女性の地域移動歴と所得の関係について+%3A+有配偶者の学歴に着目した考察&rft.jtitle=一橋大学大学教育研究開発センター年報&rft.aulast=朴澤&rft.aufirst=泰男&rft.date=2014&rft.spage=47&rft.epage=70";
-// opurl = "?ctx_ver=Z39.88-2004&url_ver=Z39.88-2004&ctx_enc=info%3aofi%2fenc%3aUTF-8&rft_val_fmt=info%3aofi%2ffmt%3akev%3amtx%3ajournal&rfr_id=info%3asid%2fci.nii.ac.jp%3aCiNii&rfe_dat=naid%2f110002763494&rft.issn=04478053&rft.eissn=04478053&rft.atitle=3.%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e3%81%ae%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88+%28%3c%e7%89%b9%e9%9b%86%3e%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%29&rft.jtitle=%e6%83%85%e5%a0%b1%e5%87%a6%e7%90%86&rft.aulast=%e5%ae%89%e9%81%94&rft.aufirst=%e6%b7%b3&rft.aucorp=%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e7%a0%94%e7%a9%b6%e9%96%8b%e7%99%ba%e9%83%a8&rft.date=1996&rft.volume=37&rft.issue=9&rft.spage=826&rft.epage=830";
+// opurl = "&rft.eissn=04478053&rft.atitle=3.%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e3%81%ae%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88+%28%3c%e7%89%b9%e9%9b%86%3e%e3%83%87%e3%82%a3%e3%82%b8%e3%82%bf%e3%83%ab%e5%9b%b3%e6%9b%b8%e9%a4%a8%29&rft.jtitle=%e6%83%85%e5%a0%b1%e5%87%a6%e7%90%86&rft.aulast=%e5%ae%89%e9%81%94&rft.aufirst=%e6%b7%b3&rft.aucorp=%e5%ad%a6%e8%a1%93%e6%83%85%e5%a0%b1%e3%82%bb%e3%83%b3%e3%82%bf%e3%83%bc%e7%a0%94%e7%a9%b6%e9%96%8b%e7%99%ba%e9%83%a8&rft.date=1996&rft.volume=37&rft.issue=9&rft.spage=826&rft.epage=830";
+//http://nw5sg2bn2y.search.serialssolutions.com/?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=
