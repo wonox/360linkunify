@@ -1,75 +1,97 @@
 function parsedom(res, name, namae, baseurl) {
-	var dpObj = new DOMParser();
-	var xmlText = res["responseText"];
-	var xmlDoc = $.parseXML(xmlText);
-	console.log(res);
-	var xmlcontent=res["responseText"];
-	console.log(content+xmlcontent);
-	var listdata="";
-	// 両方をカンマ区切りで指定してブラウザによる差異を吸収。
-	// toDo: <ssopenurl:linkGroup type="holding">がなければスルー
-	$(xmlDoc).find("ssopenurl\\:result, result").each(function(){
+  var dpObj = new DOMParser();
+  var xmlText = res["responseText"];
+  var xmlDoc = $.parseXML(xmlText);
+  console.log(res);
+  var xmlcontent=res["responseText"];
+  console.log(content+xmlcontent);
+  var listdata="";
+  // 両方をカンマ区切りで指定してブラウザによる差異を吸収。
+  // toDo: <ssopenurl:linkGroup type="holding">がなければスルー
+  $(xmlDoc).find("ssopenurl\\:result, result").each(function(){
 
-		var title=$(this).find("dc\\:title, title").text();
-		var source=$(this).find("dc\\:source, source").text();
-		var issn=$(this).find("ssopenurl\\:issn, issn").text();
-		var eissn=$(this).find("ssopenurl\\:eissn, eissn").text();
-		var volume=$(this).find("ssopenurl\\:volume, volume").text();
-		var issue=$(this).find("ssopenurl\\:issue, issue").text();
-		var spage=$(this).find("ssopenurl\\:spage, spage").text();
-		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
-		var providerName=$(this).find("ssopenurl\\:providerName, providerName").text();
-		var databaseName=$(this).find("ssopenurl\\:databaseName, databaseName").text();
-		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
-		var endDate=$(this).find("ssopenurl\\:endDate, endDate").text();
-		//var surl=$(this).find("ssopenurl\\:url").text();
-		var jurl=$(this).find("ssopenurl\\:url[type='journal'], url[type='journal']").text();
-		var aurl=$(this).find("ssopenurl\\:url[type='article'], url[type='article']").text();
-		var vurl=$(this).find("ssopenurl\\:url[type='volume'], url[type='volume']").text();
+    var title=$(this).find("dc\\:title, title").text();
+    var source=$(this).find("dc\\:source, source").text();
+    var issn=$(this).find("ssopenurl\\:issn, issn").text();
+    var eissn=$(this).find("ssopenurl\\:eissn, eissn").text();
+    var volume=$(this).find("ssopenurl\\:volume, volume").text();
+    var issue=$(this).find("ssopenurl\\:issue, issue").text();
+    var spage=$(this).find("ssopenurl\\:spage, spage").text();
+    var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
+    var providerName=$(this).find("ssopenurl\\:providerName, providerName").text();
+    var databaseName=$(this).find("ssopenurl\\:databaseName, databaseName").text();
+    var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
+    var endDate=$(this).find("ssopenurl\\:endDate, endDate").text();
+    //var surl=$(this).find("ssopenurl\\:url").text();
+    var jurl=$(this).find("ssopenurl\\:url[type='journal'], url[type='journal']").text();
+    var aurl=$(this).find("ssopenurl\\:url[type='article'], url[type='article']").text();
+    var vurl=$(this).find("ssopenurl\\:url[type='volume'], url[type='volume']").text();
 
-		if ($(this).find("ssopenurl\\:linkGroups, linkGroups").text()) {
-			listdata+="<li><h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl +"</a></p></li>";
-		};
-	});
+    if ($(this).find("ssopenurl\\:linkGroups, linkGroups").text()) {
+      listdata+="<li><h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl +"</a></p></li>";
+    };
+  });
 
- 	//	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
-	var name = '.' + name;
-	var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
-	// alert(resolver);
-	if ( listdata == "" ) listdata = "nodata";
-	// $(name).html("<h3><a href=\"" + resolver + "\">"+namae+"</a></h3>"+listdata);
-	$("#resolver").append('<br />' + "<h3><a href=\"" + resolver + "\">"+namae+"</a></h3><ol>"+listdata + "</ol>");
+   //	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
+  var name = '.' + name;
+  var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
+  // alert(resolver);
+  if ( listdata == "" ) listdata = "nodata";
+  // $(name).html("<h3><a href=\"" + resolver + "\">"+namae+"</a></h3>"+listdata);
+  $("#resolver").append('<br />' + "<h3><a href=\"" + resolver + "\">"+namae+"</a></h3><ol>"+listdata + "</ol>");
 }
 
 function ajaxxml(baseurl,name,namae) {
 //Javascript変数定義
 //var content ="";
-	$(document).ready(function(){
-		$.ajax({
-			url: baseurl,
-			type: "GET",
-			success: function(res) {
- 				parsedom(res, name, namae, baseurl);
- 			},
-			fail: function() {
-				alert(fail);
-			}
-		});
-	});
+  $(document).ready(function(){
+    $.ajax({
+      url: baseurl,
+      type: "GET",
+      success: function(res) {
+         parsedom(res, name, namae, baseurl);
+       },
+      fail: function() {
+        alert(fail);
+      }
+    });
+  });
 }
 
 /*base URL of other libraries*/
 var portal=[
-  {"base":"http://vs2ga4mq9g","name":'todai',"namae":'東大'},
-  {"base":"http://nw5sg2bn2y","name":'kagoshima',"namae":'鹿児島大'},
-	{"base":"http://yk2pw4vj9e","name":'hitotsubashi',"namae":'一橋大学'},
-{"base":"http://qp4wz6vz5k","name":'chiba',"namae":'千葉大学'},
-  {"base":"http://mx9kp2xn4f","name":'chuo',"namae":'中央大学'},
-  {"base":"http://tt2mx4dc7s","name":'kyoto',"namae":'京都大学'},
-  {"base":"http://te8rl7nq6r","name":'kyudai',"namae":'九州大学'},
-  {"base":"http://sg3jk3se8d","name":'ryukyu',"namae":'琉球大学'},
-  {"base":"http://ck3cc4bu9u","name":'doshisha',"namae":'同志社大学'},
-  {"base":"http://jg8gn6xr5x","name":'hokudai',"namae":'北海道大学'}
+{"base":"http://ck3cc4bu9u","name":'doshisha',"namae":'同志社大学'},
+{"base":"http://mx9kp2xn4f","name":'chuo',"namae":'中央大学'},
+{'base':'http://tm3xa4ur3u','name':'waseda','namae':'早稲田大学'},
+{'base':'http://ax5kr6fu7r','name':'jochi','namae':'上智大学'},
+{'base':'http://cv8kl8wa9k','name':'rikkyo','namae':'立教大学'},
+{'base':'http://te8rl7nq6r','name':'kyudai','namae':'九州大学'},
+{'base':'http://yj3eg6at9n','name':'shimadai','namae':'島根大学'},
+{'base':'http://hy6nh4ag9e','name':'wakayama','namae':'和歌山大学'},
+{'base':'http://uj3nm4eq5h','name':'nagaoka','namae':'長岡技術科学大学'},
+{'base':'http://qp4wz6vz5k','name':'chiba','namae':'千葉大学'},
+{'base':'http://yk2pw4vj9e','name':'hitotsubashi','namae':'一橋大学'},
+{'base':'http://vs2ga4mq9g','name':'todai','namae':'東京大学'},
+{'base':'http://ec2xm3xr4v','name':'tohoku','namae':'東北大学'},
+{'base':'http://jg8gn6xr5x','name':'hokudai','namae':'北海道大学'},
+{'base':'http://gk4ku3rq6c','name':'shigaika','namae':'滋賀医科大学'},
+{'base':'http://xz9mz9lt2m','name':'gifu','namae':'岐阜大学'},
+{'base':'http://sg3jk3se8d','name':'ryukyu','namae':'琉球大学'},
+{'base':'http://hz9vd5wl2f','name':'kumamoto','namae':'熊本大学'},
+{'base':'http://nw5sg2bn2y','name':'kagoshima','namae':'鹿児島大学'},
+{'base':'http://yc6au9sr3t','name':'ochadai','namae':'お茶の水女子大学'},
+{'base':'http://xx6ge5xn4a','name':'hirosaki','namae':'弘前大学'},
+{'base':'http://jn2xs2wb8u','name':'tukuba','namae':'筑波大学'},
+{'base':'http://ek9vk5wf7j','name':'tokushima','namae':'徳島大学'},
+{'base':'http://gk4ku3rq6c','name':'shigadai','namae':'滋賀大学'},
+{'base':'http://rn4ma3lk7u','name':'dentsu','namae':'電気通信大学'},
+{'base':'http://xv4nf5au5d','name':'kochi','namae':'高知大学'},
+{'base':'http://bl3bd7tc7s','name':'ikashika','namae':'東京医科歯科大学'},
+{'base':'http://wm3qp6kj6d','name':'miyazaki','namae':'宮崎大学'},
+{'base':'http://tt2mx4dc7s','name':'kyodai','namae':'京都大学'},
+{'base':'http://kx3ry9kp2c','name':'noko','namae':'東京農工大学'},
+{'base':'http://qq6az3es8a','name':'kogei','namae':'京都工芸繊維大学'},
+{'base':'http://yj3bg6ng2l','name':'hokuriku','namae':'北陸先端科学技術大学院大学'}
   ];
 
 // main
@@ -82,31 +104,31 @@ if (opurl.match(/Z39\.88/)) {
 
 function main(opurl) {
   for(i in portal) {
-	  ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],    portal[i]['namae']);
+    ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],    portal[i]['namae']);
   }
 }
 
 // フォームの値を取得する
 function my1() {
-	// var keyname = document.getElementById('my-text').value;
-	var keyname = $('#my-form [name=my-text]').val(); // jqueryを使った場合
-	removeall("resolver");
-	if (keyname == '') {removeall("result");};
-	if (!keyname.match(/[0-9\-xX]{8}/)) {
-		alert("input only valid ISSN");
-		return false; // break の代わり
-		};
-	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
-	main(keyname);
+  // var keyname = document.getElementById('my-text').value;
+  var keyname = $('#my-form [name=my-text]').val(); // jqueryを使った場合
+  removeall("resolver");
+  if (keyname == '') {removeall("result");};
+  if (!keyname.match(/[0-9\-xX]{8}/)) {
+    alert("input only valid ISSN");
+    return false; // break の代わり
+    };
+  keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
+  main(keyname);
 }
 
 function removeall (id){
-	var aNode = document.getElementById(id);
-	// aNode.parentNode.removeChild(aNode);
+  var aNode = document.getElementById(id);
+  // aNode.parentNode.removeChild(aNode);
 
-	for (var i =aNode.childNodes.length-1; i>=0; i--) {
-		aNode.removeChild(aNode.childNodes[i]);
-	}
+  for (var i =aNode.childNodes.length-1; i>=0; i--) {
+    aNode.removeChild(aNode.childNodes[i]);
+  }
 }
 
 // http://mx9kp2xn4f.search.serialssolutions.com/
