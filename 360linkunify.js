@@ -1,61 +1,65 @@
 function parsedom(res, name, namae, baseurl) {
-  var dpObj = new DOMParser();
-  var xmlText = res["responseText"];
-  var xmlDoc = $.parseXML(xmlText);
-  console.log(res);
-  var xmlcontent=res["responseText"];
-  console.log(content+xmlcontent);
-  var listdata="";
-  // 両方をカンマ区切りで指定してブラウザによる差異を吸収。
-  // toDo: <ssopenurl:linkGroup type="holding">がなければスルー
-  $(xmlDoc).find("ssopenurl\\:result, result").each(function(){
+	var dpObj = new DOMParser();
+	var xmlText = res["responseText"];
+	var xmlDoc = $.parseXML(xmlText);
+	console.log(res);
+	var xmlcontent=res["responseText"];
+	console.log(content+xmlcontent);
+	var listdata="";
+	// 両方をカンマ区切りで指定してブラウザによる差異を吸収。
+	// toDo: <ssopenurl:linkGroup type="holding">がなければスルー
+	$(xmlDoc).find("ssopenurl\\:result, result").each(function(){
 
-    var title=$(this).find("dc\\:title, title").text();
-    var source=$(this).find("dc\\:source, source").text();
-    var issn=$(this).find("ssopenurl\\:issn, issn").text();
-    var eissn=$(this).find("ssopenurl\\:eissn, eissn").text();
-    var volume=$(this).find("ssopenurl\\:volume, volume").text();
-    var issue=$(this).find("ssopenurl\\:issue, issue").text();
-    var spage=$(this).find("ssopenurl\\:spage, spage").text();
-    var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
-    var providerName=$(this).find("ssopenurl\\:providerName, providerName").text();
-    var databaseName=$(this).find("ssopenurl\\:databaseName, databaseName").text();
-    var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
-    var endDate=$(this).find("ssopenurl\\:endDate, endDate").text();
-    //var surl=$(this).find("ssopenurl\\:url").text();
-    var jurl=$(this).find("ssopenurl\\:url[type='journal'], url[type='journal']").text();
-    var aurl=$(this).find("ssopenurl\\:url[type='article'], url[type='article']").text();
-    var vurl=$(this).find("ssopenurl\\:url[type='volume'], url[type='volume']").text();
+		var title=$(this).find("dc\\:title, title").text();
+		var source=$(this).find("dc\\:source, source").text();
+		var issn=$(this).find("ssopenurl\\:issn, issn").text();
+		var eissn=$(this).find("ssopenurl\\:eissn, eissn").text();
+		var volume=$(this).find("ssopenurl\\:volume, volume").text();
+		var issue=$(this).find("ssopenurl\\:issue, issue").text();
+		var spage=$(this).find("ssopenurl\\:spage, spage").text();
+		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
+		var providerName=$(this).find("ssopenurl\\:providerName, providerName").text();
+		var databaseName=$(this).find("ssopenurl\\:databaseName, databaseName").text();
+		var startDate=$(this).find("ssopenurl\\:startDate, startDate").text();
+		var endDate=$(this).find("ssopenurl\\:endDate, endDate").text();
+		//var surl=$(this).find("ssopenurl\\:url").text();
+		var jurl=$(this).find("ssopenurl\\:url[type='journal'], url[type='journal']").text();
+		var aurl=$(this).find("ssopenurl\\:url[type='article'], url[type='article']").text();
+		var vurl=$(this).find("ssopenurl\\:url[type='volume'], url[type='volume']").text();
+		var turl=$(this).find("ssopenurl\\:url[type='termsOfUse'], url[type='termsOfUse']").text();
 
-    if ($(this).find("ssopenurl\\:linkGroups, linkGroups").text()) {
-      listdata+="<li><h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl +"</a></p></li>";
-    };
-  });
+		if ($(this).find("ssopenurl\\:linkGroups, linkGroups").text()) {
+			// listdata+="<li><h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl + '</a><br/><a href="' + turl + '">termsOfUse: ' + turl + '</a></p></li>';
+			listdata+="<li><h4>"+title+"</h4><p>source: "+ source + "<br /> issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl + '</a>';
+			if (turl) { listdata += '<br/><a href="' + turl + '">termsOfUse: ' + turl + '</a></p></li>' }
+				else { listdata += '</p></li>'};
+		};
+	});
 
-   //	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
-  var name = '.' + name;
-  var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
-  // alert(resolver);
-  if ( listdata == "" ) listdata = "nodata";
-  // $(name).html("<h3><a href=\"" + resolver + "\">"+namae+"</a></h3>"+listdata);
-  $("#resolver").append('<br />' + "<h3><a href=\"" + resolver + "\">"+namae+"</a></h3><ol>"+listdata + "</ol>");
+ 	//	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
+	var name = '.' + name;
+	var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
+	// alert(resolver);
+	if ( listdata == "" ) listdata = "nodata";
+	// $(name).html("<h3><a href=\"" + resolver + "\">"+namae+"</a></h3>"+listdata);
+	$("#resolver").append('<br />' + "<h3><a href=\"" + resolver + "\">"+namae+"</a></h3><ol>"+listdata + "</ol>");
 }
 
 function ajaxxml(baseurl,name,namae) {
 //Javascript変数定義
 //var content ="";
-  $(document).ready(function(){
-    $.ajax({
-      url: baseurl,
-      type: "GET",
-      success: function(res) {
-         parsedom(res, name, namae, baseurl);
-       },
-      fail: function() {
-        alert(fail);
-      }
-    });
-  });
+	$(document).ready(function(){
+		$.ajax({
+			url: baseurl,
+			type: "GET",
+			success: function(res) {
+ 				parsedom(res, name, namae, baseurl);
+ 			},
+			fail: function() {
+				alert(fail);
+			}
+		});
+	});
 }
 
 /*base URL of other libraries*/
@@ -104,31 +108,31 @@ if (opurl.match(/Z39\.88/)) {
 
 function main(opurl) {
   for(i in portal) {
-    ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],    portal[i]['namae']);
+	  ajaxxml( portal[i]['base'] + '.openurl.xml.serialssolutions.com/openurlxml' + opurl,  portal[i]['name'],    portal[i]['namae']);
   }
 }
 
 // フォームの値を取得する
 function my1() {
-  // var keyname = document.getElementById('my-text').value;
-  var keyname = $('#my-form [name=my-text]').val(); // jqueryを使った場合
-  removeall("resolver");
-  if (keyname == '') {removeall("result");};
-  if (!keyname.match(/[0-9\-xX]{8}/)) {
-    alert("input only valid ISSN");
-    return false; // break の代わり
-    };
-  keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
-  main(keyname);
+	// var keyname = document.getElementById('my-text').value;
+	var keyname = $('#my-form [name=my-text]').val(); // jqueryを使った場合
+	removeall("resolver");
+	if (keyname == '') {removeall("result");};
+	if (!keyname.match(/[0-9\-xX]{8}/)) {
+		alert("input only valid ISSN");
+		return false; // break の代わり
+		};
+	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
+	main(keyname);
 }
 
 function removeall (id){
-  var aNode = document.getElementById(id);
-  // aNode.parentNode.removeChild(aNode);
+	var aNode = document.getElementById(id);
+	// aNode.parentNode.removeChild(aNode);
 
-  for (var i =aNode.childNodes.length-1; i>=0; i--) {
-    aNode.removeChild(aNode.childNodes[i]);
-  }
+	for (var i =aNode.childNodes.length-1; i>=0; i--) {
+		aNode.removeChild(aNode.childNodes[i]);
+	}
 }
 
 // http://mx9kp2xn4f.search.serialssolutions.com/
