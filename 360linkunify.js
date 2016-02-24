@@ -30,19 +30,19 @@ function parsedom(res, name, namae, baseurl) {
 
 		if ($(this).find("ssopenurl\\:linkGroups, linkGroups").text()) {
 			// listdata+="<li><h4>"+title+"</h4><p>source: "+ source + " issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl + '</a><br/><a href="' + turl + '">termsOfUse: ' + turl + '</a></p></li>';
-			listdata+="<li><h4>"+title+"</h4><p>source: "+ source + "<br /> issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl + '</a>';
+			listdata+='<li><h4>'+title+'</h4><p>source: ' + source + "<br /> issn: " + issn + " eissn: " + eissn + " vol: " + volume + " issue: " + issue + " spage: " + spage + " startDate: " + startDate + " endDate: " + endDate + " providerName: " + providerName + " databaseName: " + databaseName + '</p><p><a href="' + vurl + '">' + vurl +'</a><br/><a href="' + jurl + '">' + jurl +'</a><br/><a href="' + aurl + '">' + aurl + '</a>';
 			if (turl) { listdata += '<br/><a href="' + turl + '">termsOfUse: ' + turl + '</a></p></li>' }
 				else { listdata += '</p></li>'};
 		};
 	});
 
  	//	$(".hyouji2").html("<h4>ここにテキストデータを変換したXMLがでます</h4>"+listdata);
-	var name = '.' + name;
+	// var name = '.' + name;
 	var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
 	// alert(resolver);
 	if ( listdata == "" ) listdata = "nodata";
 	// $(name).html("<h3><a href=\"" + resolver + "\">"+namae+"</a></h3>"+listdata);
-	$("#resolver").append('<br />' + "<h3><a href=\"" + resolver + "\">"+namae+"</a></h3><ol>"+listdata + "</ol>");
+	$("#resolver").append('<br />' + '<h3 lang="ja"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol>");
 }
 
 function ajaxxml(baseurl,name,namae) {
@@ -64,38 +64,38 @@ function ajaxxml(baseurl,name,namae) {
 
 /*base URL of other libraries*/
 var portal=[
-{"base":"http://ck3cc4bu9u","name":'doshisha',"namae":'同志社大学'},
-{"base":"http://mx9kp2xn4f","name":'chuo',"namae":'中央大学'},
-{'base':'http://tm3xa4ur3u','name':'waseda','namae':'早稲田大学'},
-{'base':'http://ax5kr6fu7r','name':'jochi','namae':'上智大学'},
-{'base':'http://cv8kl8wa9k','name':'rikkyo','namae':'立教大学'},
-{'base':'http://te8rl7nq6r','name':'kyudai','namae':'九州大学'},
-{'base':'http://yj3eg6at9n','name':'shimadai','namae':'島根大学'},
-{'base':'http://hy6nh4ag9e','name':'wakayama','namae':'和歌山大学'},
-{'base':'http://uj3nm4eq5h','name':'nagaoka','namae':'長岡技術科学大学'},
-{'base':'http://qp4wz6vz5k','name':'chiba','namae':'千葉大学'},
-{'base':'http://yk2pw4vj9e','name':'hitotsubashi','namae':'一橋大学'},
-{'base':'http://vs2ga4mq9g','name':'todai','namae':'東京大学'},
-{'base':'http://ec2xm3xr4v','name':'tohoku','namae':'東北大学'},
-{'base':'http://jg8gn6xr5x','name':'hokudai','namae':'北海道大学'},
-{'base':'http://gk4ku3rq6c','name':'shigaika','namae':'滋賀医科大学'},
-{'base':'http://xz9mz9lt2m','name':'gifu','namae':'岐阜大学'},
-{'base':'http://sg3jk3se8d','name':'ryukyu','namae':'琉球大学'},
-{'base':'http://hz9vd5wl2f','name':'kumamoto','namae':'熊本大学'},
-{'base':'http://nw5sg2bn2y','name':'kagoshima','namae':'鹿児島大学'},
-{'base':'http://yc6au9sr3t','name':'ochadai','namae':'お茶の水女子大学'},
-{'base':'http://xx6ge5xn4a','name':'hirosaki','namae':'弘前大学'},
-{'base':'http://jn2xs2wb8u','name':'tukuba','namae':'筑波大学'},
-{'base':'http://ek9vk5wf7j','name':'tokushima','namae':'徳島大学'},
-{'base':'http://gk4ku3rq6c','name':'shigadai','namae':'滋賀大学'},
-{'base':'http://rn4ma3lk7u','name':'dentsu','namae':'電気通信大学'},
-{'base':'http://xv4nf5au5d','name':'kochi','namae':'高知大学'},
-{'base':'http://bl3bd7tc7s','name':'ikashika','namae':'東京医科歯科大学'},
-{'base':'http://wm3qp6kj6d','name':'miyazaki','namae':'宮崎大学'},
-{'base':'http://tt2mx4dc7s','name':'kyodai','namae':'京都大学'},
-{'base':'http://kx3ry9kp2c','name':'noko','namae':'東京農工大学'},
-{'base':'http://qq6az3es8a','name':'kogei','namae':'京都工芸繊維大学'},
-{'base':'http://yj3bg6ng2l','name':'hokuriku','namae':'北陸先端科学技術大学院大学'}
+{"base":"http://ck3cc4bu9u","name":'doshisha univ.',"namae":'同志社大学'},
+{"base":"http://mx9kp2xn4f","name":'chuo univ.',"namae":'中央大学'},
+{'base':'http://tm3xa4ur3u','name':'waseda univ.','namae':'早稲田大学'},
+{'base':'http://ax5kr6fu7r','name':'jochi(sophia)univ.','namae':'上智大学'},
+{'base':'http://cv8kl8wa9k','name':'rikkyo(St.Paul)univ. ','namae':'立教大学'},
+{'base':'http://te8rl7nq6r','name':'kyushu univ','namae':'九州大学'},
+{'base':'http://yj3eg6at9n','name':'shimane univ.','namae':'島根大学'},
+{'base':'http://hy6nh4ag9e','name':'wakayama univ.','namae':'和歌山大学'},
+{'base':'http://uj3nm4eq5h','name':'nagaoka univ.','namae':'長岡技術科学大学'},
+{'base':'http://qp4wz6vz5k','name':'chiba univ.','namae':'千葉大学'},
+{'base':'http://yk2pw4vj9e','name':'hitotsubashi univ.','namae':'一橋大学'},
+{'base':'http://vs2ga4mq9g','name':'tokyo univ.','namae':'東京大学'},
+{'base':'http://ec2xm3xr4v','name':'tohoku univ.','namae':'東北大学'},
+{'base':'http://jg8gn6xr5x','name':'hokkaido univ.','namae':'北海道大学'},
+{'base':'http://gk4ku3rq6c','name':'shigaika univ.','namae':'滋賀医科大学'},
+{'base':'http://xz9mz9lt2m','name':'gifu univ.','namae':'岐阜大学'},
+{'base':'http://sg3jk3se8d','name':'ryukyu univ.','namae':'琉球大学'},
+{'base':'http://hz9vd5wl2f','name':'kumamoto univ.','namae':'熊本大学'},
+{'base':'http://nw5sg2bn2y','name':'kagoshima univ.','namae':'鹿児島大学'},
+{'base':'http://yc6au9sr3t','name':'ochanomizu univ.','namae':'お茶の水女子大学'},
+{'base':'http://xx6ge5xn4a','name':'hirosaki univ.','namae':'弘前大学'},
+{'base':'http://jn2xs2wb8u','name':'tukuba univ.','namae':'筑波大学'},
+{'base':'http://ek9vk5wf7j','name':'tokushima univ.','namae':'徳島大学'},
+{'base':'http://gk4ku3rq6c','name':'shiga univ.','namae':'滋賀大学'},
+{'base':'http://rn4ma3lk7u','name':'dentsu(uec)univ.','namae':'電気通信大学'},
+{'base':'http://xv4nf5au5d','name':'kochi univ.','namae':'高知大学'},
+{'base':'http://bl3bd7tc7s','name':'tokyo ikashika univ.','namae':'東京医科歯科大学'},
+{'base':'http://wm3qp6kj6d','name':'miyazaki univ.','namae':'宮崎大学'},
+{'base':'http://tt2mx4dc7s','name':'kyoto univ.','namae':'京都大学'},
+{'base':'http://kx3ry9kp2c','name':'tokyo noko univ.','namae':'東京農工大学'},
+{'base':'http://qq6az3es8a','name':'kyoto kogei univ.','namae':'京都工芸繊維大学'},
+{'base':'http://yj3bg6ng2l','name':'hokuriku univ.','namae':'北陸先端科学技術大学院大学'}
   ];
 
 // main

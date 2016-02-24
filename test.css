@@ -18,22 +18,13 @@ h2.pagetitle:before{
 }
 
 /* sorezore */
-.hyouji{
+h3{
 	margin:5px;
 	padding:5px;
 	background-color:#FFFFEE;
+	font-weight:bold;
 }
-.hyouji title,
-{
-font-weight:bold;
-}
-.ajax .hyouji p,
-{
-color:#FF0000;
-}
-.ajax p{
-	margin:5px;
-}
+
 
 /* Toggled State */
 .btn { margin:10px; }
