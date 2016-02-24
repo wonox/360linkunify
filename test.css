@@ -32,5 +32,30 @@ font-weight:bold;
 color:#FF0000;
 }
 .ajax p{
-	margin:5px; 
-} 
+	margin:5px;
+}
+
+/* Toggled State */
+.btn { margin:10px; }
+#english:checked ~ .wrapper :lang(en) {
+	display: block;
+}
+#english ~ .wrapper :lang(en) {
+	display: none;
+}
+#english:checked ~ .wrapper :lang(ja) {
+	display: none;
+}
+#japanese ~ .wrapper :lang(ja) {
+	display: none;
+}
+#japanese:checked ~ .wrapper :lang(en) {
+	display: none;
+}
+#japanese:checked ~ .wrapper :lang(ja) {
+	display: block;
+}
+
+input.select-lang {
+	margin: 1em 1em 1em 0.5em;
+}
