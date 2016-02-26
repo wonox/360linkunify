@@ -74,8 +74,13 @@ function parsedom(res, name, namae, baseurl) {
 	});
 
 	var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
-	if ( listdata == "" ) listdata = "nodata";
-	$("#resolver").append('<br />' + '<h3 lang="ja"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol>");
+	if ( listdata == "" ) {
+		listdata = "nodata";
+		//break;
+		// return false; // break
+	} else {
+		$("#resolver").append('<br />' + '<h3 lang="ja"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol>");
+	}
 }
 
 function ajaxxml(baseurl,name,namae) {
@@ -98,7 +103,6 @@ var opurl =	window.location.search;
 if (opurl.match(/Z39\.88/)) {
   if ( !opurl.match(/version=1.0/)) opurl = opurl.replace(/(\?)/g, "$1version=1.0&" );
   opurl = opurl.replace("url_ver=Z39.88-2003&", "" );
-	alert(opurl);
   main(opurl);
 } else {alert("Reload by applying a query or submit by filling in the ISSN to form.")}
 
@@ -119,6 +123,24 @@ function my1() {
 		return false; // break
 		};
 	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
+	main(keyname);
+}
+
+// get the value of the form
+// http://uz4ug4lz9g.openurl.xml.serialssolutions.com/openurlxml?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rft_id=info:doi/10.1080/01930826.2015.1105041
+function my2() {
+	// var keyname = document.getElementById('my-text').value; // no jquery
+	var keyname = $('#my2-form [name=my2-text]').val(); // jquery
+	removeall("resolver");
+	if (keyname == '') {removeall("result");};
+	if (!keyname.match(/[0-9\-a-zA-Z]+/)) {
+		alert("input only valid doi");
+		return false; // break
+	};
+	keyname = keyname.replace(/ /,"");
+	keyname = keyname.replace(/doi:/,"");
+	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rft_id=info:doi/' + keyname;
+// 	keyname = '?version=1.0&ctx_ver=Z39.88-2004&ctx_enc=info:ofi/enc:UTF-8&rfr_id=info:sid/summon.serialssolutions.com&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.issn=' + keyname;
 	main(keyname);
 }
 

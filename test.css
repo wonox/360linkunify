@@ -25,27 +25,23 @@ h3{
 	font-weight:bold;
 }
 
-
+#my-text,
+#my2-text {
+	margin:5px;
+}
 /* Toggled State */
 .btn { margin:10px; }
-#english:checked ~ .wrapper :lang(en) {
-	display: block;
-}
-#english ~ .wrapper :lang(en) {
-	display: none;
-}
-#english:checked ~ .wrapper :lang(ja) {
-	display: none;
-}
-#japanese ~ .wrapper :lang(ja) {
-	display: none;
-}
-#japanese:checked ~ .wrapper :lang(en) {
-	display: none;
-}
+#english:checked ~ .wrapper :lang(en) ,
 #japanese:checked ~ .wrapper :lang(ja) {
 	display: block;
 }
+#english ~ .wrapper :lang(en),
+#english:checked ~ .wrapper :lang(ja),
+#japanese ~ .wrapper :lang(ja),
+#japanese:checked ~ .wrapper :lang(en) {
+	display: none;
+}
+
 
 input.select-lang {
 	margin: 1em 1em 1em 0.5em;
