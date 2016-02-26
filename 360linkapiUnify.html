@@ -26,8 +26,15 @@
 <p lang="en">Using the jquery.xdomainajax.js, across the 360Link XML API Something like Unified Search experiment</p>
 
 <form name="my-form" id="my-form" method="post" onsubmit="my1()" lang="code">
+  issn:
   <input type="text" name="my-text" id="my-text" placeholder="ISSNを入力してください 例：0387-8953" />
   <input type="button" value="submit" onclick="my1()">
+</form>
+
+<form name="my2-form" id="my2-form" method="post" onsubmit="my2()" lang="code">
+  doi: 
+  <input type="text" name="my2-text" id="my2-text" placeholder="doiを入力してください 例：0387-8953" />
+  <input type="button" value="submit" onclick="my2()">
 </form>
 
 <code lang="code">
@@ -36,14 +43,15 @@
 
 <ul lang="en">
   <li>Please try to reload (F5) by connecting the appropriate OpenURL as above.
-  <li>When you press the button to put the ISSN to form, to find the journal title.</li>
+  <li>When you press the button to put the ISSN or DOI to form, to find the journal title.</li>
   <li>It works as a simple link resolver.</li>
 </ul>
 
 <ul lang="ja">
   <li lang="ja">  のような感じで適当にOpenURLをつなげてリロード（F5）してみてください。<br />
   簡易リンクリゾルバとして動きます。</li>
-  <li>フォームにISSNを入れて牡丹を押すと、ジャーナルタイトルを検索します。</li>
+  <li>フォームにISSNを入れてsubmitを押すと、ジャーナルタイトルを検索します。</li>
+  <li>フォームにdoiを入れてsubmitを押すと、ジャーナルタイトルを検索します。</li>
 </ul>
 
 </div>
