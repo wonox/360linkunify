@@ -19,3 +19,8 @@ _experimental sciprt that unified search by ProQuest(SerialsSolutions) 360 Link 
 * The behavior that Unordered display order is by design^^;
 * In order to avoid cross-domain, we use a jquery.xdomainajax.old.js.This library use yahoo api.
 * I really wanted to unified search, including SFX, etc., but it was easy to use is 360 API of, is a unified search of only 360 link.
+* 電子リソース共有の検討のためのプロトタイプです。
+* 紙の本・雑誌であればNACSIS-CAT/ILL/CiNii-ABが果たしてきた役割を、電子リソースの場合、ローカルナレッジベースの共有で補えるのか、ということを検討したかった。
+* 単に、どの大学図書館が何を契約しているか、だけを知りたいのであれば、このツールのように各大学のローカルナレッジベースが共有できれば、とりあえずの用は足りる。（このツールは360しか共有できませんが・・・）
+* 電子リソースの場合、さらにどういう契約かどういう利用条件か、が重要なのだが、ナレッジベースだけではよくわからない。
+* いわゆるERMS製品である360Resource Managerを使っている大学であれば、Term of Use のリンクが表示される（日本では京都大学をはじめ数大学のみ）。
