@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 <title>360Link XML APIの横断？検索</title>
 <link rel="stylesheet" href="test.css" type="text/css">
+<link rel="stylesheet" href="papier.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.xdomainajax.old.js"></script>
 <script type="text/javascript" src="360linkunify.js"></script>
@@ -20,21 +21,25 @@
 <input type="radio" name="lang" id="japanese" checked />
 
 <div class="wrapper">
-<h2 class="pagetitle" lang="ja">360Link XML APIの横断？検索</h2>
-<h2 class="pagetitle" lang="en">360Link XML API Unified Search</h2>
-<p lang="ja">jquery.xdomainajax.jsを使って、360Link XML APIを横断？検索する実験</p>
-<p lang="en">Using the jquery.xdomainajax.js, across the 360Link XML API Something like Unified Search experiment</p>
+  <section class="panel" lang="en">
+    <header class="bg-teal">360Link XML API Unified Search</header>
+    <main>Using the jquery.xdomainajax.js, across the 360Link XML API Something like Unified Search experiment</main>
+  </section>
+  <section class="panel" lang="ja">
+    <header class="bg-teal">360Link XML APIの横断？検索</header>
+    <main>jquery.xdomainajax.jsを使って、360Link XML APIを横断？検索する実験</main>
+  </section>
 
 <form name="my-form" id="my-form" method="post" onsubmit="my1()" lang="code">
   issn:
   <input type="text" name="my-text" id="my-text" placeholder="ISSNを入力してください 例：0387-8953" />
-  <input type="button" value="submit" onclick="my1()">
+  <button type="button" value="submit" onclick="my1()" class="bg-red">submit</button>
 </form>
 
 <form name="my2-form" id="my2-form" method="post" onsubmit="my2()" lang="code">
-  doi: 
+  doi:
   <input type="text" name="my2-text" id="my2-text" placeholder="doiを入力してください 例：0387-8953" />
-  <input type="button" value="submit" onclick="my2()">
+  <button type="button" value="submit" onclick="my2()" class="bg-red">submit</button>
 </form>
 
 <code lang="code">
@@ -56,8 +61,6 @@
 
 </div>
 
-
-
-<div id="resolver" class="wrapper"></div>
+<div id="resolver" class="wrapper row demo"></div>
 
 </body></html>

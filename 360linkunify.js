@@ -73,13 +73,15 @@ function parsedom(res, name, namae, baseurl) {
 		};
 	});
 
+// class="col-sm-1 bg-red"
 	var resolver = baseurl.replace(/\.openurl\.xml\.serialssolutions\.com\/openurlxml/, ".search.serialssolutions.com/");
 	if ( listdata == "" ) {
 		listdata = "nodata";
 		//break;
 		// return false; // break
 	} else {
-		$("#resolver").append('<br />' + '<h3 lang="ja"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol>");
+		// $("#resolver").append('<br />' + '<h3 lang="ja"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol>");
+		$("#resolver").append('<div class="col-sm-6 bg-white">' + '<h3 lang="ja" class="card depth-2"><a href=\"' + resolver + "\">"+namae+'</a></h3><h3 lang="en"><a href=\"' + resolver + "\">"+name+'</a></h3><ol lang="other">'+listdata + "</ol></div>");
 	}
 }
 
